@@ -25,7 +25,7 @@ Note: If you don't have Composer you can download it [HERE](https://getcomposer.
 
 #### Using release archives
 
-https://github.com/Eleirbag89/TelegramBotPHP/releases
+https://github.com/algol-team/php-utility/releases
 
 #### Using Git
 

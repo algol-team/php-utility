@@ -104,7 +104,7 @@ class DefaultOf {
      * @return array|bool|float|int|string
      * @link umid_soft@mail.ru
      */
-    public static function ValueFromString($AValue, int $ADecimal = 2, string $AThousand = CH_FREE) {
+    public static function ValueFromString($AValue, $ADecimal = 2, $AThousand = CH_FREE) {
         $FResult = $AValue;
         if (is_array($FResult)) {
             foreach ($FResult as $FKey => $FValue) {
@@ -120,7 +120,7 @@ class DefaultOf {
      * @param string $AThousand
      * @return bool|float|int|string
      */
-    private static function ValueFromStringExecute1($AValue, int $ADecimal = 2, string $AThousand = CH_FREE) {
+    private static function ValueFromStringExecute1($AValue, $ADecimal = 2, $AThousand = CH_FREE) {
         if (is_string($AValue)) {
             $FValue = StrOf::Replace($AValue, CH_COMMA, CH_POINT);
             if (self::TypeCheck($AValue)) return intval($AValue);
@@ -180,7 +180,7 @@ class DefaultOf {
      * @param int $AType
      * @return bool
      */
-    public static function TypeCheck($AValue, int $AType = FILTER_VALIDATE_INT): bool {
+    public static function TypeCheck($AValue, $AType = FILTER_VALIDATE_INT) {
         if ($AType == GTC_MultiArray) {
             if (is_array($AValue)) {
                 foreach ($AValue as $FValue) if (is_array($FValue)) return true;
@@ -240,7 +240,7 @@ class StrOf {
      * @param false $ATrim
      * @return false|int
      */
-    public static function Length($AValue, bool $ATrim = false) {
+    public static function Length($AValue, $ATrim = false) {
         try {
             if (is_null($AValue)) return 0;
             elseif (is_array($AValue)) return ArrayOf::Length($AValue, true);
@@ -256,7 +256,7 @@ class StrOf {
      * @param string $ADefault
      * @return string
      */
-    public static function From($AValue, string $ADefault = CH_FREE): string {
+    public static function From($AValue, $ADefault = CH_FREE) {
         return strval(DefaultOf::ValueCheck(ArrayOf::First($AValue), $ADefault));
     }
 
@@ -268,7 +268,7 @@ class StrOf {
      * @param bool $AWord
      * @return false|int
      */
-    public static function Pos($AValue, $ASubValue, int $AStart = 1, bool $ARepeat = false, bool $AWord = false) {
+    public static function Pos($AValue, $ASubValue, $AStart = 1, $ARepeat = false, $AWord = false) {
         $FResult = 0;
         if ((self::Length($AValue) > 0) and (self::Length($ASubValue) > 0) and DefaultOf::IntervalCheck($AStart, 1, self::Length($AValue))) {
             $FResult = self::PosExecute1($AValue, $ASubValue, $AStart - 1, $AWord);
@@ -284,7 +284,7 @@ class StrOf {
      * @param bool $AWord
      * @return false|int
      */
-    private static function PosExecute1($AValue, $ASubValue, int $AStart = 0, bool $AWord = false) {
+    private static function PosExecute1($AValue, $ASubValue, $AStart = 0, $AWord = false) {
         $FResult = mb_stripos($AValue, $ASubValue, $AStart, "UTF-8");
         if ($FResult === false) $FResult = 0; else {
             $FResult += 1;
@@ -305,7 +305,7 @@ class StrOf {
      * @param bool $ARepeat
      * @return false|int
      */
-    public static function PosWord($AValue, $ASubValue, int $AStart = 1, bool $ARepeat = false) {
+    public static function PosWord($AValue, $ASubValue, $AStart = 1, $ARepeat = false) {
         return self::Pos($AValue, $ASubValue, $AStart, $ARepeat, true);
     }
 
@@ -318,7 +318,7 @@ class StrOf {
      * @param bool $AWord
      * @return bool|int
      */
-    public static function Found($AValue, $ASubValue, int $AStart = 1, $AParam = null, bool $AFullSearch = false, bool $AWord = false) {
+    public static function Found($AValue, $ASubValue, $AStart = 1, $AParam = null, $AFullSearch = false, $AWord = false) {
         $FResult = 0;
         $FText = null;
         if ((self::Length($AValue) > 0) and (self::Length($ASubValue) > 0)) {
@@ -419,7 +419,7 @@ class StrOf {
      * @param int $APercent
      * @return bool
      */
-    public static function Same($AValue1, $AValue2, int $APercent = 100): bool {
+    public static function Same($AValue1, $AValue2, int $APercent = 100) {
         similar_text(self::CharCase($AValue1, MB_CASE_LOWER), self::CharCase($AValue2, MB_CASE_LOWER), $FPercent);
         return ($FPercent >= $APercent);
     }
@@ -443,7 +443,7 @@ class StrOf {
      * @param null $AContinueFormat
      * @return string
      */
-    public static function Copy($AValue, $AStart, $ALength, bool $ARight = false, $AContinueFormat = null): string {
+    public static function Copy($AValue, $AStart, $ALength, $ARight = false, $AContinueFormat = null) {
         $FLength = self::Length($AValue);
         if (($FLength > 0) and DefaultOf::IntervalCheck($AStart, 1, $FLength) and ($ALength > 0)) {
             if ($ARight) $FStart = $AStart * (-1); else $FStart = $AStart - 1;
@@ -535,7 +535,7 @@ class StrOf {
      * @param $AReplace
      * @return array
      */
-    private static function ReplaceExecute3($AValue, $ASearch, $AReplace): array {
+    private static function ReplaceExecute3($AValue, $ASearch, $AReplace) {
         $FResult = $AValue;
         if (is_array($ASearch) and is_array($AReplace)) {
             foreach ($ASearch as $FKey => $FValue) {
@@ -579,7 +579,7 @@ class StrOf {
      * @param false $AInvert
      * @return array|mixed|string|null
      */
-    public static function Add($ASource, $AAppend, string $ASeparator = ", ", bool $AIfExs = false, bool $AInvert = false) {
+    public static function Add($ASource, $AAppend, $ASeparator = ", ", $AIfExs = false, $AInvert = false) {
         if (is_array($AAppend)) {
             $FResult = $ASource;
             foreach ($AAppend as $FValue) $FResult = self::Add($FResult, $FValue, $ASeparator, $AIfExs, $AInvert);
@@ -596,7 +596,7 @@ class StrOf {
      * @param int $AParam
      * @return string
      */
-    public static function CharCase($AValue, int $AParam = MB_CASE_TITLE): string {
+    public static function CharCase($AValue, $AParam = MB_CASE_TITLE) {
         if (is_null($AParam)) return self::From($AValue); else return mb_convert_case($AValue, $AParam, "UTF-8");
     }
 
@@ -606,7 +606,7 @@ class StrOf {
      * @param null $AResult
      * @return bool
      */
-    public static function FormatFromUserData($AValue, string $AParam = FFUD_FullName, &$AResult = null): bool {
+    public static function FormatFromUserData($AValue, $AParam = FFUD_FullName, &$AResult = null) {
         $AResult = null;
         $FResult = false;
         switch ($AParam) {
@@ -641,7 +641,7 @@ class StrOf {
      * @param bool $ANewLine
      * @return bool
      */
-    public static function ToFile($AFileName, $AValue, bool $ANewLine = false): bool {
+    public static function ToFile($AFileName, $AValue, $ANewLine = false) {
         $FResult = false;
         if ((self::Length($AFileName) > 0) and (self::Length($AValue) > 0)) {
             try {
@@ -686,7 +686,7 @@ class ValueOf {
      * @param string $AFormat
      * @return string
      */
-    public static function DateTimeModify($AValue, int $ASecond = 0, int $AMinute = 0, int $AHour = 0, int $ADay = 0, int $AWeek = 0, int $AMonth = 0, int $AYear = 0, string $AFormat = "d.m.Y H:i:s"): string {
+    public static function DateTimeModify($AValue, $ASecond = 0, $AMinute = 0, $AHour = 0, $ADay = 0, $AWeek = 0, $AMonth = 0, $AYear = 0, $AFormat = "d.m.Y H:i:s") {
         $FValue = date_create($AValue);
         if ($ASecond <> 0) $FValue->modify(sprintf("%d second", $ASecond));
         if ($AMinute <> 0) $FValue->modify(sprintf("%d second", $ASecond * $AMinute));
@@ -705,7 +705,7 @@ class ValueOf {
      * @param null $ADefault
      * @return mixed|null
      */
-    public static function DateTimePeriod($AStartTime, $AFinishTime, string $AFormat = "[Seconds]", $ADefault = null) {
+    public static function DateTimePeriod($AStartTime, $AFinishTime, $AFormat = "[Seconds]", $ADefault = null) {
         $FResult = $ADefault;
         $FStartTime = $AStartTime;
         $FFinishTime = $AFinishTime;
@@ -800,7 +800,7 @@ class ValueOf {
      * @param null $ADefault
      * @return false|string|null
      */
-    public static function DateTimeConvertFormat($AValue, string $AFormat = "d.m.Y H:i:s", $ADefault = null) {
+    public static function DateTimeConvertFormat($AValue, $AFormat = "d.m.Y H:i:s", $ADefault = null) {
         if (DefaultOf::TypeCheck($AValue, GTC_DateTime)) return date($AFormat, strtotime($AValue)); else return $ADefault;
     }
 
@@ -842,7 +842,7 @@ class ValueOf {
      * @param int $ADecimal
      * @return array|bool|float|int|string
      */
-    public static function Distance($ALatFrom, $ALonFrom, $ALatTo, $ALonTo, string $AUnit = "km", int $ADecimal = 1) {
+    public static function Distance($ALatFrom, $ALonFrom, $ALatTo, $ALonTo, $AUnit = "km", $ADecimal = 1) {
         $FResult = 0;
         if (($ALatFrom <> $ALatTo) or ($ALonFrom <> $ALonTo)) {
             // Get param and calculate
@@ -893,7 +893,7 @@ class ArrayOf {
      * @param bool $ASubLength
      * @return int
      */
-    public static function Length($AValue, bool $ASubLength = false): int {
+    public static function Length($AValue, $ASubLength = false) {
         $FResult = 0;
         if (is_array($AValue)) {
             if ($ASubLength) self::LengthExecute1($AValue, $FResult); else $FResult = count($AValue);
@@ -918,7 +918,7 @@ class ArrayOf {
      * @param bool $ASubValue
      * @return mixed|null
      */
-    public static function Value($AValue, int $ANumber = 1, bool $ASubValue = false) {
+    public static function Value($AValue, $ANumber = 1, $ASubValue = false) {
         $FResult = null;
         if (is_array($AValue)) {
             $FCount = self::Length($AValue);
@@ -954,7 +954,7 @@ class ArrayOf {
      * @param null $AInterval
      * @return int
      */
-    public static function FromFile($AFileName, &$AResult, string $AKey = CH_EQUAL, $AInterval = null): int {
+    public static function FromFile($AFileName, &$AResult, $AKey = CH_EQUAL, $AInterval = null) {
         $AResult = [];
         if (file_exists($AFileName)) {
             $FFile = fopen($AFileName, "r");
@@ -1101,7 +1101,7 @@ class ArrayOf {
      * @param null $AKeys
      * @return int
      */
-    public static function FromString($AValue, string $AInterval = CH_SPEC, &$AResult = null, $ALimit = null, $AKeys = null): int {
+    public static function FromString($AValue, $AInterval = CH_SPEC, &$AResult = null, $ALimit = null, $AKeys = null) {
         $AResult = [];
         $FResult = 0;
         $FSubInterval = null;
@@ -1147,7 +1147,7 @@ class ArrayOf {
      * @param null $AKeys
      * @return array
      */
-    public static function FromStringWithArray($AValue, $AInterval = CH_SPEC, $ALimit = null, $AKeys = null): array {
+    public static function FromStringWithArray($AValue, $AInterval = CH_SPEC, $ALimit = null, $AKeys = null) {
         $FResult = [];
         self::FromString($AValue, $AInterval, $FResult, $ALimit, $AKeys);
         return $FResult;
@@ -1158,7 +1158,7 @@ class ArrayOf {
      * @param false $AParse
      * @return array|null
      */
-    public static function FromJSON($AValue, bool $AParse = false): array {
+    public static function FromJSON($AValue, $AParse = false) {
         if (!StrOf::Found($AValue, [CH_BRACE_FIGURE_BEGIN, CH_BRACE_FIGURE_END], 1, null, true)) $FResult = [];
         elseif ($AParse === false) {
             if (is_array($AValue)) {
@@ -1437,7 +1437,7 @@ class SystemOf {
      * @param int $AOptions
      * @return array|mixed|string|string[]|null
      */
-    public static function FileInfo($AFileName, int $AOptions = PATHINFO_FILENAME) {
+    public static function FileInfo($AFileName, $AOptions = PATHINFO_FILENAME) {
         if ($AOptions == GFI_Curl) return curl_file_create($AFileName); else return pathinfo($AFileName, $AOptions);
     }
 
@@ -2594,7 +2594,7 @@ class FtpOf {
      * @param bool $APassive
      * @return bool
      */
-    public function Connect(bool $APassive): bool {
+    public function Connect($APassive) {
         $this->FStream = ftp_connect($this->FHost, $this->FPort, $this->FTimeout);
         if ($this->FStream and ftp_login($this->FStream, $this->FUserName, $this->FPassword)) {
             ftp_pasv($this->FStream, $APassive);
@@ -2606,7 +2606,7 @@ class FtpOf {
      * FTP disconnection
      * @return $this
      */
-    public function Close(): ClassFTP {
+    public function Close() {
         if ($this->FStream) {
             ftp_close($this->FStream);
             $this->FStream = false;
@@ -2618,7 +2618,7 @@ class FtpOf {
      * @param bool $APassive
      * @return bool
      */
-    public function Reconnect(bool $APassive): bool {
+    public function Reconnect($APassive) {
         sleep(1);
         $this->Close();
         sleep(1);
@@ -2638,7 +2638,7 @@ class FtpOf {
      * @param $ADirectory
      * @return bool
      */
-    public function DirectoryCreate($ADirectory): bool {
+    public function DirectoryCreate($ADirectory) {
         return ftp_mkdir($this->FStream, $ADirectory);
     }
 
@@ -2646,7 +2646,7 @@ class FtpOf {
      * Get current directory
      * @return string
      */
-    public function DirectoryPath(): string {
+    public function DirectoryPath() {
         return ftp_pwd($this->FStream);
     }
 
@@ -2684,7 +2684,7 @@ class FtpOf {
      * @param int $AMode
      * @return bool
      */
-    public function FileDownload($ARemoteFile, $ALocalFile, int $AMode = FTP_BINARY) {
+    public function FileDownload($ARemoteFile, $ALocalFile, $AMode = FTP_BINARY) {
         return ftp_get($this->FStream, $ALocalFile, $ARemoteFile, $AMode);
     }
 
@@ -2695,7 +2695,7 @@ class FtpOf {
      * @param int $AMode
      * @return bool
      */
-    public function FileUpload($ALocalFile, $ARemoteFile, int $AMode = FTP_BINARY) {
+    public function FileUpload($ALocalFile, $ARemoteFile, $AMode = FTP_BINARY) {
         return ftp_put($this->FStream, $ARemoteFile, $ALocalFile, $AMode);
     }
 
@@ -2705,7 +2705,7 @@ class FtpOf {
      * @param $ANewName
      * @return bool
      */
-    public function FileRename($AOldName, $ANewName): bool {
+    public function FileRename($AOldName, $ANewName) {
         return ftp_rename($this->FStream, $AOldName, $ANewName);
     }
 
@@ -2714,7 +2714,7 @@ class FtpOf {
      * @param $ARemoteFile
      * @return bool
      */
-    public function FileDelete($ARemoteFile): bool {
+    public function FileDelete($ARemoteFile) {
         return ftp_delete($this->FStream, $ARemoteFile);
     }
 
