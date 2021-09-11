@@ -14,5 +14,9 @@
             "email": "algol.team.uz@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=7.4",
+        "Eleirbag89/TelegramBotPHP": "*",
+        "ThingEngineer/PHP-MySQLi-Database-Class": "*"
+    }
 }
