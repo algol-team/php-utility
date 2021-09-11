@@ -15,7 +15,7 @@
         }
     ],
     "require-dev": {
-        "Eleirbag89/TelegramBotPHP": "*",
-        "ThingEngineer/PHP-MySQLi-Database-Class": "*"        
+        "eleirbag89/telegrambotphp": "*",
+        "thingengineer/mysqli-database-class": "*"     
     }
 }
