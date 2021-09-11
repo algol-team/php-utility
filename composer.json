@@ -14,8 +14,13 @@
             "email": "algol.team.uz@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {
+        "php": ">=7.0",
         "eleirbag89/telegrambotphp": "*",
-        "thingengineer/mysqli-database-class": "*"     
+        "thingengineer/mysqli-database-class": "*",
+        "ext-cassandra": "*",
+        "ext-json": "*",
+        "ext-ftp": "*"
     }
 }
