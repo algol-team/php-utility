@@ -14,7 +14,7 @@
             "email": "algol.team.uz@gmail.com"
         }
     ],
-    "require-dev": {
+    "require": {
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*"     
     }
