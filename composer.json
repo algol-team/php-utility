@@ -19,7 +19,6 @@
         "php": ">=7.0",
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*",
-        "ext-cassandra": "*",
         "ext-json": "*",
         "ext-ftp": "*"
     }
