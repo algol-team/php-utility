@@ -7,60 +7,54 @@
  *  Thanks to specialist: All PHP masters.                                       *
  ********************************************************************************/
 
-namespace AlgolTeam;
-
-use Exception;
-use MysqliDb;
-use Telegram;
-
 // CONST GLOBAL
-define("CH_AND", "&");
-define("CH_COMMA", ",");
-define("CH_EQUAL", "=");
-define("CH_FREE", "");
-define("CH_PLUS", "+");
-define("CH_MINUS", "-");
-define("CH_NET", "#");
-define("CH_NULL", "0");
-define("CH_NUMBER", "№");
-define("CH_POINT", ".");
-define("CH_POINT_TWO_VER", ":");
-define("CH_POINT_COMMA", ";");
-define("CH_POINT_THREE", "...");
-define("CH_SPACE", " ");
-define("CH_SPEC", "|");
-define("CH_BOTTOM_LINE", "_");
-define("CH_BRACE_BEGIN", "(");
-define("CH_BRACE_END", ")");
-define("CH_BRACE_FIGURE_BEGIN", "{");
-define("CH_BRACE_FIGURE_END", "}");
-define("CH_BRACE_SQR_BEGIN", "[");
-define("CH_BRACE_SQR_END", "]");
-define("CH_TAG_BEGIN", "<");
-define("CH_TAG_END", ">");
-define("CH_PERCENT", "%");
-define("CH_MAIL", "@");
-define("CH_FLAG", "~");
-define("CH_STAR", "*");
-define("CH_MONEY", "$");
-define("CH_INTERJECTION", "!");
-define("CH_QUESTION", "?");
-define("CH_ID", "ID");
-define("CH_OK", "OK");
-define("CH_NEW_LINE", "\n");
-define("CH_PATH", "\\");
-define("CH_ANTI_PATH", "/");
+const CH_AND = "&";
+const CH_COMMA = ",";
+const CH_EQUAL = "=";
+const CH_FREE = "";
+const CH_PLUS = "+";
+const CH_MINUS = "-";
+const CH_NET = "#";
+const CH_NULL = "0";
+const CH_NUMBER = "№";
+const CH_POINT = ".";
+const CH_POINT_TWO_VER = ":";
+const CH_POINT_COMMA = ";";
+const CH_POINT_THREE = "...";
+const CH_SPACE = " ";
+const CH_SPEC = "|";
+const CH_BOTTOM_LINE = "_";
+const CH_BRACE_BEGIN = "(";
+const CH_BRACE_END = ")";
+const CH_BRACE_FIGURE_BEGIN = "{";
+const CH_BRACE_FIGURE_END = "}";
+const CH_BRACE_SQR_BEGIN = "[";
+const CH_BRACE_SQR_END = "]";
+const CH_TAG_BEGIN = "<";
+const CH_TAG_END = ">";
+const CH_PERCENT = "%";
+const CH_MAIL = "@";
+const CH_FLAG = "~";
+const CH_STAR = "*";
+const CH_MONEY = "$";
+const CH_INTERJECTION = "!";
+const CH_QUESTION = "?";
+const CH_ID = "ID";
+const CH_OK = "OK";
+const CH_NEW_LINE = "\n";
+const CH_PATH = "\\";
+const CH_ANTI_PATH = "/";
 
-define("CH_TRIM", "CH_TRIM");
+const CH_TRIM = "CH_TRIM";
 
 // Const Get Type Check
-define("GTC_Number", "GTC_Number");
-define("GTC_DateTime", "GTC_DateTime");
-define("GTC_TimeOnly", "GTC_TimeOnly");
-define("GTC_MultiArray", "GTC_MultiArray");
+const GTC_Number = "GTC_Number";
+const GTC_DateTime = "GTC_DateTime";
+const GTC_TimeOnly = "GTC_TimeOnly";
+const GTC_MultiArray = "GTC_MultiArray";
 
 /**
- * ClassDefaultOf
+ * DefaultOf
  *
  * @category  Class
  * @package   Utility
@@ -204,27 +198,27 @@ class DefaultOf {
 }
 
 // Const String Found
-define("SF_SameText", "SF_SameText");
-define("SF_FirstText", "SF_FirstText");
-define("SF_GetCount", "SF_GetCount");
-define("SF_GetValue", "SF_GetValue");
-define("SF_GetKey", "SF_GetKey");
-define("SF_GetKeySame", "SF_GetKeySame");
-define("SF_OnlyKey", "SF_OnlyKey");
-define("SF_OnlyKeySame", "SF_OnlyKeySame");
-define("SF_WithKey", "SF_WithKey");
-define("SF_WithKeySame", "SF_WithKeySame");
+const SF_SameText = "SF_SameText";
+const SF_FirstText = "SF_FirstText";
+const SF_GetCount = "SF_GetCount";
+const SF_GetValue = "SF_GetValue";
+const SF_GetKey = "SF_GetKey";
+const SF_GetKeySame = "SF_GetKeySame";
+const SF_OnlyKey = "SF_OnlyKey";
+const SF_OnlyKeySame = "SF_OnlyKeySame";
+const SF_WithKey = "SF_WithKey";
+const SF_WithKeySame = "SF_WithKeySame";
 
 // Const String Replace
-define("SR_ArrayKeys", "SR_ArrayKeys");
+const SR_ArrayKeys = "SR_ArrayKeys";
 
 // Const Format From User Data
-define("FFUD_FullName", "FFUD_FullName");
-define("FFUD_Login", "FFUD_Login");
-define("FFUD_Password", "FFUD_Password");
+const FFUD_FullName = "FFUD_FullName";
+const FFUD_Login = "FFUD_Login";
+const FFUD_Password = "FFUD_Password";
 
 /**
- * ClassStrOf
+ * StrOf
  *
  * @category  Class
  * @package   Utility
@@ -663,7 +657,7 @@ class StrOf {
 }
 
 /**
- * ClassValueOf
+ * ValueOf
  *
  * @category  Class
  * @package   Utility
@@ -869,15 +863,15 @@ class ValueOf {
 }
 
 // Const Get Array Of
-define("GAO_Combine", "GAO_Combine");
-define("GAO_Merge", "GAO_Merge");
-define("GAO_Column", "GAO_Column");
-define("GAO_Cut", "GAO_Cut");
-define("GAO_GetKeyAll", "GAO_GetKeyAll");
-define("GAO_Chunk", "GAO_Chunk");
+const GAO_Combine = "GAO_Combine";
+const GAO_Merge = "GAO_Merge";
+const GAO_Column = "GAO_Column";
+const GAO_Cut = "GAO_Cut";
+const GAO_GetKeyAll = "GAO_GetKeyAll";
+const GAO_Chunk = "GAO_Chunk";
 
 /**
- * ClassArrayOf
+ * ArrayOf
  *
  * @category  Class
  * @package   Utility
@@ -1377,7 +1371,7 @@ class ArrayOf {
 }
 
 /**
- * ClassDateTimeOf
+ * DateTimeOf
  *
  * @category  Class
  * @package   Utility
@@ -1418,10 +1412,10 @@ class DateTimeOf {
 }
 
 // Const Get File Info
-define("GFI_Curl", "GFI_Curl");
+const GFI_Curl = "GFI_Curl";
 
 /**
- * ClassSystemOf
+ * SystemOf
  *
  * @category  Class
  * @package   Utility
@@ -1435,7 +1429,7 @@ class SystemOf {
     /**
      * @param $AFileName
      * @param int $AOptions
-     * @return array|mixed|string|string[]|null
+     * @return array|CURLFile|string|string[]
      */
     public static function FileInfo($AFileName, $AOptions = PATHINFO_FILENAME) {
         if ($AOptions == GFI_Curl) return curl_file_create($AFileName); else return pathinfo($AFileName, $AOptions);
@@ -1486,15 +1480,15 @@ class SystemOf {
 }
 
 // Const Language
-define("LNG_Execute", "LNGExecute");
-define("LNG_Execute2", "LNGExecute2");
-define("LNG_Execute3", "LNGExecute3");
-define("LNG_Execute4", "LNGExecute4");
-define("LNG_Execute5", "LNGExecute5");
-define("LNG_Skip", "LNGSkip");
+const LNG_Execute = "LNGExecute";
+const LNG_Execute2 = "LNGExecute2";
+const LNG_Execute3 = "LNGExecute3";
+const LNG_Execute4 = "LNGExecute4";
+const LNG_Execute5 = "LNGExecute5";
+const LNG_Skip = "LNGSkip";
 
 /**
- * ClassLanguage
+ * LanguageOf
  *
  * @category  Class
  * @package   Utility
@@ -1511,7 +1505,7 @@ class LanguageOf {
     private $FLog;
 
     /**
-     * ClassLanguage constructor.
+     * LanguageOf constructor.
      * @param $AFileName
      * @param null $ALogFile
      */
@@ -1612,7 +1606,7 @@ class LanguageOf {
                 foreach ($FResult as $FKey => $FValue) {
                     if ($FValuesCount > 0) {
                         $FStrValuesCount = StrOf::Found($FValue, ["%s", "%d"], 1, SF_GetCount);
-                        if (($FValuesCount == 0) or ($FStrValuesCount == $FValuesCount)) $FResult[$FKey] = $this->Translate($FValue, $AValues); else {
+                        if ($FStrValuesCount == $FValuesCount) $FResult[$FKey] = $this->Translate($FValue, $AValues); else {
                             $FResult[$FKey] = $this->Translate($FValue, array_slice($AValues, $FIndex, $FStrValuesCount));
                             $FIndex += $FStrValuesCount;
                         }
@@ -1644,7 +1638,7 @@ class LanguageOf {
 }
 
 /**
- * ClassMySQLDB
+ * MysqlDbOf
  *
  * @category  Class
  * @package   Utility
@@ -1656,7 +1650,7 @@ class LanguageOf {
 class MysqlDbOf extends MysqliDb {
 
     /**
-     * ClassMySQLDB constructor.
+     * MysqlDbOf constructor.
      * @param null $AHost
      * @param null $AUserName
      * @param null $APassword
@@ -1685,7 +1679,7 @@ class MysqlDbOf extends MysqliDb {
      * @param $AWhere
      * @param string $ACond
      * @param string $ADefaultProp
-     * @return bool|ClassMySQLDB
+     * @return bool|MysqlDbOf
      */
     public function joinOf($AValues, $AWhere, $ACond = "AND", $ADefaultProp = "ID") {
         $FResult = false;
@@ -1775,7 +1769,7 @@ class MysqlDbOf extends MysqliDb {
      * @param $AValues
      * @param string $ACond
      * @param string $ADefaultProp
-     * @return bool|ClassMySQLDB
+     * @return bool|MysqlDbOf
      */
     public function whereOf($AValues, $ACond = "AND", $ADefaultProp = "ID") {
         $FResult = false;
@@ -1800,7 +1794,7 @@ class MysqlDbOf extends MysqliDb {
 
     /**
      * @param $AValues
-     * @return bool|ClassMySQLDB
+     * @return bool|MysqlDbOf
      */
     public function orderByOf($AValues) {
         $FResult = false;
@@ -1819,7 +1813,7 @@ class MysqlDbOf extends MysqliDb {
 
     /**
      * @param $AValues
-     * @return ClassMySQLDB|false
+     * @return MysqlDbOf|false
      */
     public function groupByOf($AValues) {
         $FResult = false;
@@ -1840,7 +1834,7 @@ class MysqlDbOf extends MysqliDb {
      * @param bool $AFormatClearSubArray
      * @param null $AValueFromString
      * @param null $AJSONParseField
-     * @return array|ClassMySQLDB|string|null
+     * @return array|MysqlDbOf|string|null
      */
     public function getOf($ATableName, $AColumns = "*", $ANumRows = null, $AFormat = null, $AFormatClearSubArray = true, $AValueFromString = null, $AJSONParseField = null) {
         $FResult = null;
@@ -1969,7 +1963,7 @@ class MysqlDbOf extends MysqliDb {
                     if (!is_null($AOtherData)) $FValues = ArrayOf::Of(GAO_Merge, $FValues, $AOtherData);
                     if (!is_null($ACombineKey)) $FValues = ArrayOf::Combine($FValues, $ACombineKey);
                     $FID = $this->insert($ATableName, ArrayOf::ToJSON($FValues, true));
-                    if ((bool)$FID) {
+                    if ($FID) {
                         $AResult = (int)$FID;
                         $FResult = true;
                     }
@@ -1999,7 +1993,7 @@ class MysqlDbOf extends MysqliDb {
     private function AppendExecute1($ATableName, $AMultiInsertData, $ADataKeys, $ADuplicate, $AOtherData, $ACombineKey) {
         $FResult = [];
         try {
-            $FAutoCommit = (isset($this->_transaction_in_progress) ? !$this->_transaction_in_progress : true);
+            $FAutoCommit = (!isset($this->_transaction_in_progress) || !$this->_transaction_in_progress);
             if($FAutoCommit) $this->startTransaction();
             foreach ($AMultiInsertData as $FValue) {
                 if ((ArrayOf::Length($ADataKeys) > 0) and (ArrayOf::Length($ADataKeys) == ArrayOf::Length($FValue))) $FValue = array_combine($ADataKeys, $FValue);
@@ -2051,7 +2045,7 @@ class MysqlDbOf extends MysqliDb {
 }
 
 /**
- * ClassTelegram
+ * TelegramOf
  *
  * @category  Class
  * @package   Utility
@@ -2068,7 +2062,7 @@ class TelegramOf extends Telegram {
     private $valid;
 
     /**
-     * ClassTelegram constructor.
+     * TelegramOf constructor.
      * @param string $AToken
      */
     public function __construct($AToken = "") {
@@ -2124,7 +2118,7 @@ class TelegramOf extends Telegram {
      */
     private function GetBuildButtonsExecute1($AButtons, $AInline = false) {
         $FButton = [];
-        foreach ($AButtons as $FKey => $FValue) {
+        foreach ($AButtons as $FValue) {
             if (is_array($FValue)) {
                 foreach ($FValue as $FSubKey => $FSubValue) $FValue[$FSubKey] = $this->GetBuildButtonsExecute2($FSubValue, $AInline);
                 array_push($FButton, $FValue);
@@ -2235,7 +2229,7 @@ class TelegramOf extends Telegram {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function PhoneOf() {
         return StrOf::Copy($this->getData()["message"]["contact"]["phone_number"], 9, 9, true);
@@ -2551,7 +2545,7 @@ class TelegramOf extends Telegram {
 }
 
 /**
- * ClassFTP
+ * FtpOf
  *
  * @category  Class
  * @package   Utility
@@ -2570,7 +2564,7 @@ class FtpOf {
     private $FUserName;
 
     /**
-     * ClassFTP constructor.
+     * FtpOf constructor.
      * @param $AHost
      * @param $AUserName
      * @param $APassword

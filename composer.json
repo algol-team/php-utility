@@ -4,9 +4,7 @@
     "type": "library",
     "license": "MIT",
     "autoload": {
-        "psr-4": {
-            "AlgolTeam\\": ""
-        }
+        "files": ["Utility.php"]
     },
     "authors": [
         {
@@ -14,12 +12,13 @@
             "email": "algol.team.uz@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "alpha",
     "require": {
         "php": ">=7.0",
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*",
         "ext-json": "*",
-        "ext-ftp": "*"
+        "ext-ftp": "*",
+        "ext-curl": "*"
     }
 }
