@@ -1,6 +1,7 @@
 {
     "name": "algol-team/library",
     "description": "This is php utilities.",
+    "keywords": ["php", "utility", "telegram", "ftp", "mysql", "language"],
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -14,7 +15,7 @@
     ],
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=7.0",
+        "php": ">=5.6.0",
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*",
         "ext-json": "*",
