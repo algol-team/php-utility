@@ -9,9 +9,9 @@
 
 // CONST GLOBAL
 
-//use Embed\ExtractorFactory;
-//use Embed\Http\Crawler;
-//use Embed\Embed;
+use Embed\ExtractorFactory;
+use Embed\Http\Crawler;
+use Embed\Embed;
 
 const CH_AND = "&";
 const CH_COMMA = ",";
@@ -149,14 +149,14 @@ class ALGOL {
         return new FtpOf($AHost, $AUserName, $APassword, $APort, $ATimeout);
     }
 
-//    /**
-//     * @param null $ACrawler
-//     * @param null $AExtractorFactory
-//     * @return EmbedOf
-//     */
-//    public static function EmbedOf($ACrawler = null, $AExtractorFactory = null) {
-//        return new EmbedOf($ACrawler, $AExtractorFactory);
-//    }
+    /**
+     * @param null $ACrawler
+     * @param null $AExtractorFactory
+     * @return EmbedOf
+     */
+    public static function EmbedOf($ACrawler = null, $AExtractorFactory = null) {
+        return new EmbedOf($ACrawler, $AExtractorFactory);
+    }
 
 }
 
@@ -2262,10 +2262,11 @@ class TelegramOf extends Telegram {
      */
     private function GetBuildButtonsExecute2($AValue, $AInline = false) {
         $FValue = (new StrOf)->From($AValue);
-        if (((new ArrayOf)->FromString($FValue, CH_EQUAL, $FResult) == 2) or ((new ArrayOf)->FromString($FValue, CH_SPEC, $FResult) == 2)) {
+        if (((new ArrayOf)->FromString($FValue, CH_EQUAL, $FResult) >= 2) or ((new ArrayOf)->FromString($FValue, CH_SPEC, $FResult) >= 2)) {
             $FNameStr = (new ArrayOf)->Value($FResult);
             $FValueStr = (new ArrayOf)->Value($FResult, 2);
-            if ($AInline) $FResult = $this->buildInlineKeyboardButton($FNameStr, CH_FREE, $FValueStr); else {
+            $FUrlStr = (new ArrayOf)->Value($FResult, 3);
+            if ($AInline) $FResult = $this->buildInlineKeyboardButton($FNameStr, $FUrlStr, $FValueStr); else {
                 if ((new StrOf)->Same($FValueStr, "[PHONE]")) $FResult = $this->buildKeyboardButton($FNameStr, true);
                 elseif ((new StrOf)->Same($FValueStr, "[LOCATION]")) $FResult = $this->buildKeyboardButton($FNameStr, false, true); else $FResult = $this->buildKeyboardButton($FValue);
             }
@@ -2842,24 +2843,24 @@ class FtpOf {
 
 }
 
-///**
-// * EmbedOf
-// *
-// * @category  Class
-// * @package   Utility
-// * @author    AlgolTeam <algol.team.uz@gmail.com>
-// * @copyright Copyright (c) 2021
-// * @link      https://github.com/algol-team
-// */
-//
-//class EmbedOf extends Embed {
-//
-//    /**
-//     * @param Crawler|null $crawler
-//     * @param ExtractorFactory|null $extractorFactory
-//     */
-//    public function __construct(Crawler $crawler = null, ExtractorFactory $extractorFactory = null) {
-//        parent::__construct($crawler, $extractorFactory);
-//    }
-//
-//}
+/**
+ * EmbedOf
+ *
+ * @category  Class
+ * @package   Utility
+ * @author    AlgolTeam <algol.team.uz@gmail.com>
+ * @copyright Copyright (c) 2021
+ * @link      https://github.com/algol-team
+ */
+
+class EmbedOf extends Embed {
+
+    /**
+     * @param Crawler|null $crawler
+     * @param ExtractorFactory|null $extractorFactory
+     */
+    public function __construct(Crawler $crawler = null, ExtractorFactory $extractorFactory = null) {
+        parent::__construct($crawler, $extractorFactory);
+    }
+
+}

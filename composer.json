@@ -15,11 +15,14 @@
     ],
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=7.4.0",
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*",
+        "embed/embed": "*",
         "ext-json": "*",
         "ext-ftp": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-mbstring": "*"
     }
 }
