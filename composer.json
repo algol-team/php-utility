@@ -18,6 +18,7 @@
         "php": ">=5.6.0",
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*",
+        "embed/embed": "*",
         "ext-json": "*",
         "ext-ftp": "*",
         "ext-curl": "*"

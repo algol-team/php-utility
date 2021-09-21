@@ -8,6 +8,11 @@
  ********************************************************************************/
 
 // CONST GLOBAL
+
+use Embed\ExtractorFactory;
+use Embed\Http\Crawler;
+use Embed\Embed;
+
 const CH_AND = "&";
 const CH_COMMA = ",";
 const CH_EQUAL = "=";
@@ -109,7 +114,7 @@ class ALGOL {
      * @return LanguageOf
      */
     public static function LanguageOf($AFileName, $ALogFile = null) {
-        return new LanguageOf($AFileName, $ALogFile = null);
+        return new LanguageOf($AFileName, $ALogFile);
     }
 
     /**
@@ -121,7 +126,7 @@ class ALGOL {
      * @return MysqlDbOf
      */
     public static function MysqlDbOf($AHost = null, $AUserName = null, $APassword = null, $ADatabase = null, $APort = 3306) {
-        return new MysqlDbOf($AHost = null, $AUserName = null, $APassword = null, $ADatabase = null, $APort = 3306);
+        return new MysqlDbOf($AHost, $AUserName, $APassword, $ADatabase, $APort);
     }
 
     /**
@@ -129,7 +134,7 @@ class ALGOL {
      * @return TelegramOf
      */
     public static function TelegramOf($AToken = "") {
-        return new TelegramOf($AToken = "");
+        return new TelegramOf($AToken);
     }
 
     /**
@@ -141,7 +146,11 @@ class ALGOL {
      * @return FtpOf
      */
     public static function FtpOf($AHost, $AUserName, $APassword, $APort = 21, $ATimeout = 90) {
-        return new FtpOf($AHost, $AUserName, $APassword, $APort = 21, $ATimeout = 90);
+        return new FtpOf($AHost, $AUserName, $APassword, $APort, $ATimeout);
+    }
+
+    public static function EmbedOf($ACrawler = null, $AExtractorFactory = null) {
+        return new EmbedOf($ACrawler, $AExtractorFactory);
     }
 
 }
@@ -2824,6 +2833,28 @@ class FtpOf {
      */
     public function FileDelete($ARemoteFile) {
         return ftp_delete($this->FStream, $ARemoteFile);
+    }
+
+}
+
+/**
+ * EmbedOf
+ *
+ * @category  Class
+ * @package   Utility
+ * @author    AlgolTeam <algol.team.uz@gmail.com>
+ * @copyright Copyright (c) 2021
+ * @link      https://github.com/algol-team
+ */
+
+class EmbedOf extends Embed {
+
+    /**
+     * @param Crawler|null $crawler
+     * @param ExtractorFactory|null $extractorFactory
+     */
+    public function __construct(Crawler $crawler = null, ExtractorFactory $extractorFactory = null) {
+        parent::__construct($crawler, $extractorFactory);
     }
 
 }
