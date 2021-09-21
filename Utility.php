@@ -149,6 +149,11 @@ class ALGOL {
         return new FtpOf($AHost, $AUserName, $APassword, $APort, $ATimeout);
     }
 
+    /**
+     * @param null $ACrawler
+     * @param null $AExtractorFactory
+     * @return EmbedOf
+     */
     public static function EmbedOf($ACrawler = null, $AExtractorFactory = null) {
         return new EmbedOf($ACrawler, $AExtractorFactory);
     }
