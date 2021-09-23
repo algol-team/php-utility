@@ -7,12 +7,11 @@
  *  Thanks to specialist: All PHP masters.                                       *
  ********************************************************************************/
 
-// CONST GLOBAL
-
-use Embed\ExtractorFactory;
-use Embed\Http\Crawler;
 use Embed\Embed;
+use Embed\Http\DispatcherInterface;
+use Embed\Adapters\Adapter;
 
+// CONST GLOBAL
 const CH_AND = "&";
 const CH_COMMA = ",";
 const CH_EQUAL = "=";
@@ -150,12 +149,13 @@ class ALGOL {
     }
 
     /**
-     * @param null $ACrawler
-     * @param null $AExtractorFactory
-     * @return EmbedOf
+     * @param $AUrl
+     * @param array|null $AConfig
+     * @param DispatcherInterface|null $ADispatcher
+     * @return Adapter
      */
-    public static function EmbedOf($ACrawler = null, $AExtractorFactory = null) {
-        return new EmbedOf($ACrawler, $AExtractorFactory);
+    public static function EmbedOf($AUrl, array $AConfig = null, DispatcherInterface $ADispatcher = null) {
+        return Embed::create($AUrl, $AConfig, $ADispatcher);
     }
 
 }
@@ -2839,28 +2839,6 @@ class FtpOf {
      */
     public function FileDelete($ARemoteFile) {
         return ftp_delete($this->FStream, $ARemoteFile);
-    }
-
-}
-
-/**
- * EmbedOf
- *
- * @category  Class
- * @package   Utility
- * @author    AlgolTeam <algol.team.uz@gmail.com>
- * @copyright Copyright (c) 2021
- * @link      https://github.com/algol-team
- */
-
-class EmbedOf extends Embed {
-
-    /**
-     * @param Crawler|null $crawler
-     * @param ExtractorFactory|null $extractorFactory
-     */
-    public function __construct(Crawler $crawler = null, ExtractorFactory $extractorFactory = null) {
-        parent::__construct($crawler, $extractorFactory);
     }
 
 }
