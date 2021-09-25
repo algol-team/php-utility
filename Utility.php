@@ -1,6 +1,6 @@
 <?php
 /********************************************************************************
- *                        .::ALGOL-TEAM PRODUCTIONS::.                           *
+ *                       .:: ALGOL-TEAM PRODUCTIONS ::.                          *
  *    .::Author © 2021 | algol.team.uz@gmail.com | github.com/algol-team::.      *
  *********************************************************************************
  *  Description: This is class for PHP.                                          *

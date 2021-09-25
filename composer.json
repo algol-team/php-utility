@@ -1,6 +1,6 @@
 {
     "name": "algol-team/library",
-    "description": "This is php utilities.",
+    "description": "This is php utilities",
     "keywords": ["php", "utility", "telegram", "ftp", "mysql", "language"],
     "type": "library",
     "license": "MIT",
