@@ -15,10 +15,11 @@
     ],
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.4",
         "eleirbag89/telegrambotphp": "*",
         "thingengineer/mysqli-database-class": "*",
-        "embed/embed": "3.*",
+        "embed/embed": "*",
+        "nyholm/psr7": "*",
         "ext-json": "*",
         "ext-ftp": "*",
         "ext-curl": "*"
