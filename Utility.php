@@ -64,6 +64,9 @@ const CH_TRIM = "CH_TRIM";
 
 class ALGOL {
 
+    /**
+     * @var array
+     */
     public static $params = [];
 
     /**
@@ -161,10 +164,11 @@ class ALGOL {
 }
 
 // Const Get Type Check
-const DIC_Number = "DIC_Number";
-const DIC_DateTime = "DIC_DateTime";
-const DIC_TimeOnly = "DIC_TimeOnly";
-const DIC_MultiArray = "DIC_MultiArray";
+const DTC_Number = "DTC_Number";
+const DTC_DateTime = "DTC_DateTime";
+const DTC_TimeOnly = "DTC_TimeOnly";
+const DTC_MultiArray = "DTC_MultiArray";
+const DTC_HTML = "DTC_HTML";
 
 /**
  * DefaultOf
@@ -264,16 +268,16 @@ class DefaultOf {
         $FValue = (new ArrayOf)->First($AValue);
         $FMin = (new ArrayOf)->First($AMin);
         $FMax = (new ArrayOf)->First($AMax);
-        if (!is_null($AMin) and !self::TypeCheck($AMin, DIC_Number)) {
+        if (!is_null($AMin) and !self::TypeCheck($AMin, DTC_Number)) {
             $FResult = (new StrOf)->Found($AMin, $FValue, 1, SF_SameText);
             $FMin = null;
         }
-        if ($FResult and !is_null($AMax) and !self::TypeCheck($AMax, DIC_Number)) {
+        if ($FResult and !is_null($AMax) and !self::TypeCheck($AMax, DTC_Number)) {
             $FResult = (new StrOf)->Found($AMax, $FValue, 1, SF_SameText);
             $FMax = null;
         }
-        if ($FResult and (self::TypeCheck($FMin, DIC_Number) or self::TypeCheck($FMax, DIC_Number))) {
-            if (self::TypeCheck($FValue, DIC_Number)) {
+        if ($FResult and (self::TypeCheck($FMin, DTC_Number) or self::TypeCheck($FMax, DTC_Number))) {
+            if (self::TypeCheck($FValue, DTC_Number)) {
                 if (is_null($FMin)) $FResult = ($FValue <= $FMax);
                 elseif (is_null($FMax)) $FResult = ($FMin <= $FValue);
                 else $FResult = (($FMin <= $FMax) and ($FMin <= $FValue) and ($FValue <= $FMax));
@@ -288,12 +292,14 @@ class DefaultOf {
      * @return bool
      */
     public function TypeCheck($AValue, $AType = FILTER_VALIDATE_INT) {
-        if ($AType == DIC_MultiArray) {
+        if ($AType == DTC_HTML) {
+            return ($AValue != strip_tags($AValue)) ? true : false;
+        } elseif ($AType == DTC_MultiArray) {
             if (is_array($AValue)) {
                 foreach ($AValue as $FValue) if (is_array($FValue)) return true;
             }
             return false;
-        } elseif ($AType == DIC_DateTime) {
+        } elseif ($AType == DTC_DateTime) {
             if ((new ArrayOf)->Length($AValue) > 1) {
                 $FFormats = (new ArrayOf)->Of(AO_Cut, $AValue, 2, (new ArrayOf)->Length($AValue) - 1);
                 $FValue = trim((new ArrayOf)->First($AValue));
@@ -302,8 +308,8 @@ class DefaultOf {
                     return false;
                 } else return date_parse_from_format($FFormats, $FValue)["error_count"] == 0;
             } else return date_parse(trim((new ArrayOf)->First($AValue)))["error_count"] == 0;
-        } elseif ($AType == DIC_TimeOnly) return self::TypeCheck([$AValue, "H:i:s", "H:i"], DIC_DateTime); else {
-            if ($AType == DIC_Number) $FType = FILTER_VALIDATE_INT|FILTER_VALIDATE_FLOAT; else $FType = $AType;
+        } elseif ($AType == DTC_TimeOnly) return self::TypeCheck([$AValue, "H:i:s", "H:i"], DTC_DateTime); else {
+            if ($AType == DTC_Number) $FType = FILTER_VALIDATE_INT|FILTER_VALIDATE_FLOAT; else $FType = $AType;
             if (filter_var($AValue, $FType) === false) return false; else return true;
         }
     }
@@ -831,10 +837,10 @@ class ValueOf {
         $FResult = $ADefault;
         $FStartTime = $AStartTime;
         $FFinishTime = $AFinishTime;
-        if ((new DefaultOf)->TypeCheck($FStartTime, DIC_DateTime) and (new DefaultOf)->TypeCheck($FFinishTime, DIC_DateTime)) {
-            if ((new DefaultOf)->TypeCheck($FStartTime, DIC_TimeOnly) and !(new DefaultOf)->TypeCheck($FFinishTime, DIC_TimeOnly)) $FFinishTime = self::DateTimeConvertFormat($FFinishTime, "H:i:s");
-            elseif (!(new DefaultOf)->TypeCheck($FStartTime, DIC_TimeOnly) and (new DefaultOf)->TypeCheck($FFinishTime, DIC_TimeOnly)) $FStartTime = self::DateTimeConvertFormat($FStartTime, "H:i:s");
-            if ((new DefaultOf)->TypeCheck($FStartTime, DIC_TimeOnly) and (new DefaultOf)->TypeCheck($FFinishTime, DIC_TimeOnly) and (strtotime($FStartTime) > strtotime($FFinishTime))) {
+        if ((new DefaultOf)->TypeCheck($FStartTime, DTC_DateTime) and (new DefaultOf)->TypeCheck($FFinishTime, DTC_DateTime)) {
+            if ((new DefaultOf)->TypeCheck($FStartTime, DTC_TimeOnly) and !(new DefaultOf)->TypeCheck($FFinishTime, DTC_TimeOnly)) $FFinishTime = self::DateTimeConvertFormat($FFinishTime, "H:i:s");
+            elseif (!(new DefaultOf)->TypeCheck($FStartTime, DTC_TimeOnly) and (new DefaultOf)->TypeCheck($FFinishTime, DTC_TimeOnly)) $FStartTime = self::DateTimeConvertFormat($FStartTime, "H:i:s");
+            if ((new DefaultOf)->TypeCheck($FStartTime, DTC_TimeOnly) and (new DefaultOf)->TypeCheck($FFinishTime, DTC_TimeOnly) and (strtotime($FStartTime) > strtotime($FFinishTime))) {
                 $FStartTime = self::DateTimeConvertFormat($FStartTime, "01.01.2000 H:i:s");
                 $FFinishTime = self::DateTimeConvertFormat($FFinishTime, "02.01.2000 H:i:s");
             }
@@ -905,7 +911,7 @@ class ValueOf {
      */
     public function DateTimeIntervalCheck($AValue, $AStartTime, $AFinishTime, $AWeekDay = null) {
         if (is_null($AStartTime) and is_null($AFinishTime)) return true; else {
-            $FTimeStyle = ((new DefaultOf)->TypeCheck($AStartTime, DIC_TimeOnly) or (new DefaultOf)->TypeCheck($AFinishTime, DIC_TimeOnly));
+            $FTimeStyle = ((new DefaultOf)->TypeCheck($AStartTime, DTC_TimeOnly) or (new DefaultOf)->TypeCheck($AFinishTime, DTC_TimeOnly));
             if ($FTimeStyle) $FValue = self::DateTimeConvertFormat($AValue, "H:i:s"); else $FValue = $AValue;
             if (is_null($AStartTime)) $FResult = (strtotime($FValue) <= strtotime($AFinishTime));
             elseif (is_null($AFinishTime)) $FResult = (strtotime($AStartTime) <= strtotime($FValue));
@@ -923,7 +929,7 @@ class ValueOf {
      * @return false|string|null
      */
     public function DateTimeConvertFormat($AValue, $AFormat = "d.m.Y H:i:s", $ADefault = null) {
-        if ((new DefaultOf)->TypeCheck($AValue, DIC_DateTime)) return date($AFormat, strtotime($AValue)); else return $ADefault;
+        if ((new DefaultOf)->TypeCheck($AValue, DTC_DateTime)) return date($AFormat, strtotime($AValue)); else return $ADefault;
     }
 
     /**
@@ -1473,6 +1479,16 @@ class ArrayOf {
         return self::Length($AResult);
     }
 
+
+    /**
+     * @param $AValue
+     * @param ...$AArgs
+     * @return false|mixed
+     */
+    public function FromFunction($AValue, ...$AArgs) {
+        if ($AValue instanceof Closure) return call_user_func($AValue, ...$AArgs); else return $AValue;
+    }
+
     /**
      * @param $AValues
      * @param $AKeys
@@ -1520,6 +1536,13 @@ class DateTimeOf {
         return date($AFormat);
     }
 
+    /**
+     * @param $ADate
+     * @param string $AFormat
+     * @param string $ADefault
+     * @param string[] $ATimeText
+     * @return array|mixed|string|null
+     */
     public function TimeAgo($ADate, $AFormat = "[Time] [Time_Text] ago", $ADefault = "long ago", $ATimeText = ["second", "minute", "hour", "day", "month", "year"]) {
         if (isset($ADate)) {
             $FLength = array("60", "60", "24", "30", "12", "10");
@@ -1563,6 +1586,10 @@ class SystemOf {
         if ($AOptions == SFI_Curl) return curl_file_create($AFileName); else return pathinfo($AFileName, $AOptions);
     }
 
+    /**
+     * @param string $ADefault
+     * @return array|mixed|string|null
+     */
     public function Values($ADefault = 'UNKNOWN') {
         $FResult = [];
         $FValue = null;
@@ -2623,6 +2650,11 @@ class TelegramOf extends Telegram {
         return $this->getData()["message"][$AType]["file_name"];
     }
 
+    /**
+     * @param $AResult
+     * @param null $ACompareName
+     * @return bool
+     */
     public function downloadFileOf(&$AResult, $ACompareName = null) {
         $FResult = false;
         $AResult = CH_FREE;
@@ -2708,6 +2740,9 @@ class FtpOf {
         $this->FTimeout = (int)$ATimeout;
     }
 
+    /**
+     *
+     */
     public function  __destruct() {
         $this->close();
     }

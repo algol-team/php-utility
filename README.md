@@ -5,7 +5,7 @@ This is php utilities.
 Requirements
 ---------
 
-* PHP >= 7.0
+* PHP >= 7.4
 * Curl extension for PHP7 must be enabled.
 
 Download
