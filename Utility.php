@@ -51,6 +51,9 @@ const CH_PATH = "\\";
 const CH_ANTI_PATH = "/";
 
 const CH_TRIM = "CH_TRIM";
+const CH_AND_TEXT = "AND";
+const CH_OR_TEXT = "OR";
+const CH_NOT_TEXT = "NOT";
 
 /**
  * ALGOL
@@ -195,8 +198,9 @@ class DefaultOf {
      * @link umid_soft@mail.ru
      */
     public function ValueCheck($AValue, $ADefault, $ATrue = null) {
-        if (isset($AValue)) {
-            if (is_null($ATrue)) return $AValue; else return $ATrue;
+        if (isset($AValue) and (!is_string($AValue) or !empty($AValue))) {
+            if (is_null($ATrue)) return $AValue;
+            elseif (!is_bool($AValue) or ($AValue === true)) return $ATrue; else return $ADefault;
         } else return $ADefault;
     }
 
@@ -217,7 +221,8 @@ class DefaultOf {
      */
     public function ValueFromString($AValue, $ADecimal = 2, $AThousand = CH_FREE) {
         $FResult = $AValue;
-        if (is_array($FResult)) {
+        if (is_object($FResult)) $FResult = (array) $FResult;
+        elseif (is_array($FResult)) {
             foreach ($FResult as $FKey => $FValue) {
                 if (is_array($FValue)) $FResult[$FKey] = self::ValueFromString($FValue, $ADecimal, $AThousand); else $FResult[$FKey] = self::ValueFromStringExecute1($FValue, $ADecimal, $AThousand);
             }
@@ -419,8 +424,11 @@ class StrOf {
             if ($AWord) {
                 $FStart = $FResult;
                 $FFinish = $FResult + self::Length($ASubValue) - 1;
+                $FStartChar = self::Copy($AValue, $FStart - 1, 1);
+                $FFinishChar = self::Copy($AValue, $FFinish + 1, 1);
                 $FPattern = "/^[a-zA-Z\p{Cyrillic}]$/u";
-                if ((($FStart > 1) and preg_match($FPattern, $AValue[$FStart - 2])) or (($FFinish < self::Length($AValue)) and preg_match($FPattern, $AValue[$FFinish]))) $FResult = 0;
+                if ((($FStart > 1) and (bool)preg_match($FPattern, $FStartChar)) or (($FFinish < self::Length($AValue)) and preg_match($FPattern, $FFinishChar))) $FResult = 0;
+                if (($FResult == 0) and ($FFinish < self::Length($AValue))) $FResult = $this->PosExecute1($AValue, $ASubValue, $FFinish, $AWord);
             }
         }
         return $FResult;
@@ -539,6 +547,10 @@ class StrOf {
                 $FPos = self::Pos($FSource, $ASearch, 1, false, $AWord);
             }
         }
+    }
+
+    public function FoundWord($AValue, $ASubValue) {
+        return $this->Found($AValue, $ASubValue, 1, null, false, true);
     }
 
     /**
